@@ -27,6 +27,10 @@
         <v-icon>get_app</v-icon>
       </v-btn>
 
+      <v-btn icon class="action-map" :title="$gettext('Show map')" @click.stop="settings.map = !settings.map">
+        <v-icon>map</v-icon>
+      </v-btn>
+
       <v-btn v-if="settings.view === 'cards'" icon :title="$gettext('Toggle View')" @click.stop="setView('list')">
         <v-icon>view_list</v-icon>
       </v-btn>

@@ -35,6 +35,7 @@ import PPhotoToolbar from "component/photo/toolbar.vue";
 import PPhotoCards from "component/photo/cards.vue";
 import PPhotoMosaic from "component/photo/mosaic.vue";
 import PPhotoList from "component/photo/list.vue";
+import PPhotoMap from "component/photo/map.vue";
 import PPhotoClipboard from "component/photo/clipboard.vue";
 import PAlbumClipboard from "component/album/clipboard.vue";
 import PAlbumToolbar from "component/album/toolbar.vue";
@@ -57,6 +58,7 @@ components.install = (Vue) => {
   Vue.component("PPhotoCards", PPhotoCards);
   Vue.component("PPhotoMosaic", PPhotoMosaic);
   Vue.component("PPhotoList", PPhotoList);
+  Vue.component("PPhotoMap", PPhotoMap);
   Vue.component("PPhotoClipboard", PPhotoClipboard);
   Vue.component("PSphereViewer", PSphereViewer);
   Vue.component("PAlbumClipboard", PAlbumClipboard);
