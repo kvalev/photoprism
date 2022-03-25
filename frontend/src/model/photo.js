@@ -918,6 +918,43 @@ export class Photo extends RestModel {
       });
   }
 
+  static toGeoJson(photos) {
+    const features = photos.map((p, index) => {
+      return {
+        id: index + 1,
+        type: "Feature",
+        geometry: {
+          type: "Point",
+          coordinates: [p.Lng, p.Lat],
+        },
+        properties: {
+          Hash: p.Hash,
+          TakenAt: p.TakenAt,
+          Title: p.Title,
+          UID: p.UID,
+        },
+      };
+    });
+
+    var min_long = Number.MAX_SAFE_INTEGER;
+    var min_lat = Number.MAX_SAFE_INTEGER;
+    var max_long = Number.MIN_SAFE_INTEGER;
+    var max_lat = Number.MIN_SAFE_INTEGER;
+
+    for (const p of photos) {
+      min_long = Math.min(min_long, p.Lng);
+      min_lat = Math.min(min_lat, p.Lat);
+      max_long = Math.max(max_long, p.Lng);
+      max_lat = Math.max(max_lat, p.Lat);
+    }
+
+    return {
+      type: "FeatureCollection",
+      bbox: [min_long, min_lat, max_long, max_lat],
+      features: features,
+    };
+  }
+
   static batchSize() {
     return 60;
   }

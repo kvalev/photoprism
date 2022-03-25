@@ -1,6 +1,9 @@
 <template>
-  <div v-infinite-scroll="loadMore" class="p-page p-page-album-photos" :infinite-scroll-disabled="scrollDisabled"
-       :infinite-scroll-distance="1200" :infinite-scroll-listen-for-event="'scrollRefresh'">
+  <div v-infinite-scroll="loadMore" class="p-page p-page-album-photos"
+       :class="settings.map && 'fill-height'"
+       :infinite-scroll-disabled="scrollDisabled"
+       :infinite-scroll-distance="1200"
+       :infinite-scroll-listen-for-event="'scrollRefresh'">
 
     <p-album-toolbar :album="model" :settings="settings" :filter="filter" :filter-change="updateQuery"
                      :refresh="refresh"></p-album-toolbar>
@@ -8,14 +11,18 @@
     <v-container v-if="loading" fluid class="pa-4">
       <v-progress-linear color="secondary-dark" :indeterminate="true"></v-progress-linear>
     </v-container>
-    <v-container v-else fluid class="pa-0">
+    <v-container v-else fluid class="pa-0" :fill-height="settings.map">
       <p-scroll-top></p-scroll-top>
 
       <p-photo-clipboard :refresh="refresh"
                          :selection="selection"
                          :album="model" context="album"></p-photo-clipboard>
 
-      <p-photo-mosaic v-if="settings.view === 'mosaic'"
+      <p-photo-map v-if="settings.map"
+                    context="album"
+                    :photos="results"
+                    :album="model"></p-photo-map>
+      <p-photo-mosaic v-else-if="settings.view === 'mosaic'"
                       context="album"
                       :photos="results"
                       :select-mode="selectMode"
@@ -66,7 +73,7 @@ export default {
     const country = query['country'] ? query['country'] : '';
     const view = this.viewType();
     const filter = {country: country, camera: camera, order: order, q: q};
-    const settings = {view: view};
+    const settings = {view: view, map: false};
 
     return {
       subscriptions: [],
