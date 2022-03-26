@@ -46,7 +46,7 @@
         </v-tab-item>
 
         <v-tab-item>
-          <p-tab-discover-todo></p-tab-discover-todo>
+          <p-tab-discover-random></p-tab-discover-random>
         </v-tab-item>
       </v-tabs-items>
     </v-tabs>
@@ -55,6 +55,7 @@
 
 <script>
 import tabColors from "pages/discover/colors.vue";
+import tabRandom from "pages/discover/random.vue";
 import tabToday from "pages/discover/today.vue";
 import tabTodo from "pages/discover/todo.vue";
 
@@ -62,6 +63,7 @@ export default {
   name: 'PPageDiscover',
   components: {
     'p-tab-discover-colors': tabColors,
+    'p-tab-discover-random': tabRandom,
     'p-tab-discover-today': tabToday,
     'p-tab-discover-todo': tabTodo,
   },
