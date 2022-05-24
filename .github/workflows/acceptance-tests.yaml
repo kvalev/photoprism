@@ -22,13 +22,13 @@ jobs:
 
       - name: Compile and run acceptance tests
         run: docker-compose exec -T photoprism make all build acceptance-prepare acceptance-run-chromium
+        continue-on-error: true
 
       - name: Tear down stack
         run: docker-compose down
 
       - uses: actions/upload-artifact@v3
         if: always()
-        continue-on-error: true
         with:
           name: screenshots
           path: frontend/tests/screenshots/
