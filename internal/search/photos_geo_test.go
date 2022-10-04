@@ -986,6 +986,24 @@ func TestGeo(t *testing.T) {
 			assert.NotEmpty(t, r.ID)
 		}
 	})
+	t.Run("f.Description = \"photo*\"", func(t *testing.T) {
+		var frm form.SearchPhotosGeo
+
+		frm.Description = "photo*"
+
+		photos, err := PhotosGeo(frm)
+
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		assert.LessOrEqual(t, 1, len(photos))
+
+		for _, r := range photos {
+			assert.IsType(t, GeoResult{}, r)
+			assert.NotEmpty(t, r.ID)
+		}
+	})
 	t.Run("QueryP", func(t *testing.T) {
 		var frm form.SearchPhotosGeo
 		frm.Query = "p"

@@ -91,6 +91,19 @@ func TestParseQueryString(t *testing.T) {
 
 		assert.Equal(t, "123abc/,EFG", form.Path)
 	})
+	t.Run("description", func(t *testing.T) {
+		form := &SearchPhotos{Query: "description:123abc"}
+
+		err := form.ParseQueryString()
+
+		// log.Debugf("%+v\n", form)
+
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		assert.Equal(t, "123abc", form.Description)
+	})
 	t.Run("valid query", func(t *testing.T) {
 		form := &SearchPhotos{Query: "label:cat q:\"fooBar baz\" before:2019-01-15 camera:23 favorite:false dist:25000 lat:33.45343166666667"}
 

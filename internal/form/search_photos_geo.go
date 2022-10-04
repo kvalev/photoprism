@@ -55,6 +55,9 @@ type SearchPhotosGeo struct {
 	Lens      int       `form:"lens"`
 	Count     int       `form:"count" serialize:"-"`
 	Offset    int       `form:"offset" serialize:"-"`
+
+	// Additional, non-upstreamed filters.
+	Description string `form:"description"`
 }
 
 // GetQuery returns the query parameter as string.
