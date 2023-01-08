@@ -1,0 +1,42 @@
+# Uffizzi extension (required)
+x-uffizzi:
+  ingress:
+    service: photoprism
+    port: 2342
+  continuous_previews:
+    delete_preview_after: 24h
+
+# PhotoPrism application
+services:
+  mariadb:
+    image: mariadb:10.8
+    ports:
+      - "4001:4001"
+    environment:
+      # Add your credentials as GitHub Actions Secrets, then use the commented syntax below:
+      MARIADB_DATABASE: "photoprism"
+      MARIADB_USER: "${MARIADBUSER}"
+      MARIADB_PASSWORD: "${MARIADBPASSWORD}"
+      MARIADB_ROOT_PASSWORD: "${MARIADBPASSWORD}"
+    deploy:
+      resources:
+        limits:
+          memory: 500M
+
+  photoprism:
+    image: "${PP_IMAGE}"
+    ports:
+      - "2342:2342"
+    environment:
+      # Add your credentials as GitHub Actions Secrets, then use the commented syntax below:
+      PGUSER: postgres # "${PGUSER}"
+      PGPASSWORD: postgres # "${PGPASSWORD}"
+      PHOTOPRISM_DATABASE_DRIVER: "mysql"
+      PHOTOPRISM_DATABASE_SERVER: "mariadb:4001"
+      PHOTOPRISM_DATABASE_NAME: "photoprism"
+      PHOTOPRISM_DATABASE_USER: "${MARIADBUSER}"
+      PHOTOPRISM_DATABASE_PASSWORD: "${MARIADBPASSWORD}"
+    deploy:
+      resources:
+        limits:
+          memory: 250M
