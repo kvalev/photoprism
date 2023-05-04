@@ -24,7 +24,7 @@ services:
           memory: 500M
 
   photoprism:
-    image: "${PP_IMAGE}"
+    image: "${PHOTOPRISM_IMAGE}"
     ports:
       - "2342:2342"
     environment:
