@@ -14,7 +14,7 @@ group "arm" {
 }
 
 group "uffizzi" {
-    targets = ["amd64", "ufz"]
+    targets = ["amd64", "demo"]
 }
 
 target "armv7" {
@@ -35,10 +35,10 @@ target "amd64" {
     platforms = ["linux/amd64"]
 }
 
-target "ufz" {
-    dockerfile = "docker/photoprism/uffizzi/Dockerfile"
+target "demo" {
+    dockerfile = "docker/demo/Dockerfile"
     tags = ["${DOCKER_REPO}:${TAG}-uffizzi"]
     contexts = {
-        base = "target:amd64"
+        "photoprism/photoprism:preview-ce" = "target:amd64"
     }
 }

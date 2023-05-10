@@ -4,7 +4,7 @@ x-uffizzi:
     service: photoprism
     port: 2342
   continuous_previews:
-    delete_preview_after: 24h
+    delete_preview_after: 48h
 
 # PhotoPrism application
 services:

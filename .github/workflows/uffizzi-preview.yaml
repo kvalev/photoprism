@@ -34,12 +34,11 @@ jobs:
           files: ./docker/docker-bake.hcl
           targets: uffizzi
           set: |
-            ufz.output=type=registry
-            ufz.tags=${{ steps.meta.outputs.tags }}
+            demo.output=type=registry
+            demo.tags=${{ steps.meta.outputs.tags }}
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
-          #
-            # ufz.labels=${{ steps.meta.outputs.labels }}
+          # demo.labels=${{ steps.meta.outputs.labels }}
 
   render-compose-file:
     name: Render Docker Compose File
