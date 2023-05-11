@@ -14,7 +14,7 @@ group "arm" {
 }
 
 group "uffizzi" {
-    targets = ["amd64", "demo"]
+    targets = ["amd64", "demo-uffizzi"]
 }
 
 target "armv7" {
@@ -37,7 +37,11 @@ target "amd64" {
 
 target "demo" {
     dockerfile = "docker/demo/Dockerfile"
-    tags = ["${DOCKER_REPO}:${TAG}-uffizzi"]
+    tags = ["${DOCKER_REPO}:${TAG}-demo"]
+}
+
+target "demo-uffizzi" {
+    inherits = ["demo"]
     contexts = {
         "photoprism/photoprism:preview-ce" = "target:amd64"
     }

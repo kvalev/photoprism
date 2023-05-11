@@ -16,8 +16,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
-        # with:
-        #   version: https://github.com/docker/buildx.git#master
       - name: Generate UUID image name
         id: uuid
         run: echo "UUID_PP=$(uuidgen)" >> $GITHUB_ENV
@@ -34,11 +32,10 @@ jobs:
           files: ./docker/docker-bake.hcl
           targets: uffizzi
           set: |
-            demo.output=type=registry
-            demo.tags=${{ steps.meta.outputs.tags }}
+            demo-uffizzi.output=type=registry
+            demo-uffizzi.tags=${{ steps.meta.outputs.tags }}
             *.cache-from=type=gha
             *.cache-to=type=gha,mode=max
-          # demo.labels=${{ steps.meta.outputs.labels }}
 
   render-compose-file:
     name: Render Docker Compose File
