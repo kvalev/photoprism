@@ -35,6 +35,10 @@ COPY /assets/examples/demo /photoprism/originals/demo/my
 # Add an additional user
 RUN photoprism user add family --password photoprism --role family --auth local
 
+# Add plugins
+RUN mkdir -p /photoprism/storage/plugins && \
+    cp /opt/photoprism/storage/plugins/*.so /photoprism/storage/plugins
+
 # Import example photos
 RUN photoprism restore -a && \
     photoprism index -a && \
