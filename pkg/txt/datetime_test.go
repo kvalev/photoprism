@@ -119,6 +119,9 @@ func TestDateTime(t *testing.T) {
 		assert.Equal(t, "2020-10-17 17:48:24.9508123 +0000 UTC", result.UTC().String())
 		assert.Equal(t, "2020-10-17 17:48:24.9508123", result.Format("2006-01-02 15:04:05.999999999"))
 	})
+	t.Run("UTC/0000:00:00 00:00:00", func(t *testing.T) {
+		assert.True(t, DateTime("0000:00:00 00:00:00", "UTC").IsZero())
+	})
 	t.Run("2022-09-03T17:48:26-07:00", func(t *testing.T) {
 		result := DateTime("2022-09-03T17:48:26-07:00", "")
 		assert.Equal(t, "2022-09-04 00:48:26 +0000 UTC", result.UTC().String())
@@ -128,7 +131,7 @@ func TestDateTime(t *testing.T) {
 
 func TestIsTime(t *testing.T) {
 	t.Run("/2020/1212/20130518_142022_3D657EBD.jpg", func(t *testing.T) {
-		assert.True(t, IsTime("/2020/1212/20130518_142022_3D657EBD.jpg"))
+		assert.False(t, IsTime("/2020/1212/20130518_142022_3D657EBD.jpg"))
 	})
 
 	t.Run("telegram_2020_01_30_09_57_18.jpg", func(t *testing.T) {

@@ -94,7 +94,7 @@
                 >
                 </v-checkbox>
               </v-flex>
-              <v-flex v-if="featExperimental && featPrivate" sm3 pa-2>
+              <v-flex v-if="experimental && featPrivate" sm3 pa-2>
                 <v-checkbox
                     v-model="model.Private"
                     :disabled="disabled"
@@ -142,8 +142,8 @@ export default {
   },
   data() {
     return {
-      featExperimental: this.$config.get("experimental") && !this.$config.ce(),
       featPrivate: this.$config.feature("private"),
+      experimental: this.$config.get("experimental") && !this.$config.ce(),
       disabled: !this.$config.allow("albums", "manage"),
       model: new Album(),
       growDesc: false,

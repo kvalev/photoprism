@@ -16,6 +16,7 @@ services:
       PHOTOPRISM_DEMO: "false"
       PHOTOPRISM_PUBLIC: "false"
       PHOTOPRISM_TEST: "true"
+      PHOTOPRISM_INIT: ""
     ports:
       - "2342:2342"
     deploy:
