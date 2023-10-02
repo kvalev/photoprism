@@ -281,6 +281,17 @@ func BatchPhotosPrivate(router *gin.RouterGroup) {
 			}
 
 			event.EntitiesUpdated("photos", photos)
+
+			// Reset the album covers, if any of the private photos were used as thumbnails.
+			if fileHashes, err := photos.Private().AllFileHashes(); err != nil {
+				log.Errorf("photos: %s (retrieve private photos file hashes)", err)
+			} else if len(fileHashes) > 0 {
+				if updated, err := query.RemovePhotosAsAlbumCovers(fileHashes); err != nil {
+					log.Errorf("photos: %s (removing private photos as album covers)", err)
+				} else {
+					log.Infof("photos: removed %d private %s as album covers", updated, english.PluralWord(int(updated), "photo", "photos"))
+				}
+			}
 		}
 
 		UpdateClientConfig()

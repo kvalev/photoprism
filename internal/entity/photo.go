@@ -45,6 +45,28 @@ func (m Photos) UIDs() []string {
 	return result
 }
 
+// AllFileHashes returns the hashes for all photos files.
+func (m Photos) AllFileHashes() (hashes []string, err error) {
+	err = Db().Model(File{}).
+		Where("photo_uid IN (?)", m.UIDs()).
+		Pluck("file_hash", &hashes).Error
+
+	return hashes, err
+}
+
+// Private returns a slice of all private photos.
+func (m Photos) Private() Photos {
+	result := make(Photos, 0, len(m))
+
+	for _, el := range m {
+		if el.PhotoPrivate {
+			result = append(result, el)
+		}
+	}
+
+	return result
+}
+
 // MapKey returns a key referencing time and location for indexing.
 func MapKey(takenAt time.Time, cellId string) string {
 	return path.Join(strconv.FormatInt(takenAt.Unix(), 36), cellId)
