@@ -8,7 +8,7 @@ Currently the plugin system provides hooks into the following internals:
 
 ## Implementation
 
-Check the demo plugin implementation in [plugin.go](./demo/plugin.go) and the `build-plugin-demo` make target in the [Makefile](../../Makefile) on how to compile the plugin solib.
+Check the demo plugin implementation in [demo.go](./demo/demo.go) and the `build-plugin-demo` make target in the [Makefile](../../Makefile) on how to compile the plugin solib.
 
 ## Configuration
 
